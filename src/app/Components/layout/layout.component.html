@@ -1,0 +1,50 @@
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+</head>
+<div *ngIf="isLoggedIn">
+  <nav class="Raleway navbar-fixed-top" style="background-color: #052433;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <a class="navbar-brand" routerLink="newReleases"><b>ngSpotify</b></a>
+          <ul class="nav navbar-nav" routerLinkActive="active">
+            <li class="nav-item"><a class="nav-link" routerLink="newReleases">New Releases</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="about">About</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4" align="right">
+          <div style="height: 8px"></div>
+          <input type="text" autocomplete="off" class="form-control" [value]="searchValue" (keyup)="checkArtistBox();"
+            name="#artistSearch" [formControl]="txtArtist" placeholder="Search for Artists here.." id="txtArtist">
+        </div>
+        <div class="col-md-1">
+          <div style="height: 8px"></div>
+          <button class="btn btn-danger btn-primary" (click)="logOff()">Log Off</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="container" *ngIf="show">
+  <ul class="list-group" *ngFor="let result of searchResults">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-md-2">
+          <img src="{{result.images['2']?.url}}" alt="{{result.name}}" width="50" height="50">
+        </div>
+        <div class="col-md-10">
+          <div class="row">
+            <h4><a routerLink="/artist/{{result.id}}" (click)="hideDiv()"><span>{{result.name}}</span></a></h4>
+          </div>
+          <div class="row">
+            <strong>Genres: </strong>
+            <span *ngFor="let genre of result.genres">{{genre}}, </span>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<app-musicplayer *ngIf="isLoggedIn"></app-musicplayer>

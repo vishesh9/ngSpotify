@@ -1,0 +1,25 @@
+<div class="container" style="color: antiquewhite;">
+  <div class="row" *ngIf="isLoading===false">
+    <div class="col-md-6 Raleway">
+      <h1>{{artistName?.name}}</h1>
+      <p>{{artistName?.followers.total}} people follow this artist</p>
+    </div>
+    <div class="col-md-6" align="right">
+      <img src="{{artistName?.images['0'].url}}" alt="{{artistName?.name}}" width="40%" height="40%">
+    </div>
+  </div>
+  <div style="height: 20px"></div>
+  <ul class="list-group" *ngFor="let track of allTracks">
+    <div class="row">
+      <li class="list-group-item" style="background-color: black">
+        <a href="javascript:void(0);" style="color: white" (click)="firePlay(track?.name,track?.preview_url)">
+          <i class="fa fa-play" aria-hidden="true"></i>
+        </a>&nbsp;
+         {{track?.name}}
+      </li>
+    </div>
+  </ul>
+  <ng-container *ngIf="isLoading">
+    <img src='../../../assets/Loader.svg' style="position: fixed; left: 43%; top: 35%;">
+  </ng-container>
+</div>
